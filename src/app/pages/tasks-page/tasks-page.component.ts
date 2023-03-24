@@ -75,10 +75,6 @@ export class TasksPageComponent {
   }
 
   onUpdate (task: Task): void {
-    const item = Object.assign({}, task, {$extra: {isLoading: true}})
-
-    this.taskService.dispatchUpsertEntityAction(item)
-
     const ref = this.dialog.open(TaskFormComponent, {
       minWidth: TaskFormComponent.width,
       data: {
@@ -91,6 +87,10 @@ export class TasksPageComponent {
       .pipe(
         take(1),
         filter((data: TaskForm['value']) => !!data),
+        tap(() => {
+          const item = Object.assign({}, task, {$extra: {isLoading: true}})
+          this.taskService.dispatchUpsertEntityAction(item)
+        }),
         switchMap(data => this.update(data)),
       ).subscribe()
   }
