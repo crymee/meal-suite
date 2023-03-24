@@ -74,6 +74,8 @@ describe('TasksPageComponent', () => {
       }),
       switchMap(() => taskApi.get().pipe(take(1))),
       tap(entities => expect(entities.length).toEqual(BackendService.taskCount - 1)),
+      switchMap(() => fixture.componentInstance.tasks$.pipe(take(1))),
+      tap(entities => expect(entities.length).toEqual(BackendService.taskCount - 1)),
       switchMap(() => taskService.entities$.pipe(take(1))),
       tap(entities => expect(entities.length).toEqual(BackendService.taskCount - 1)),
       filter(entities => !!entities.length),
@@ -97,6 +99,8 @@ describe('TasksPageComponent', () => {
       switchMap(() => taskService.entities$.pipe(take(1))),
       tap(entities => expect(entities.length).toEqual(BackendService.taskCount)),
       switchMap(() => taskApi.get().pipe(take(1))),
+      tap(entities => expect(entities.length).toEqual(BackendService.taskCount)),
+      switchMap(() => fixture.componentInstance.tasks$.pipe(take(1))),
       tap(entities => expect(entities.length).toEqual(BackendService.taskCount)),
     ).subscribe(value => {
       done()
