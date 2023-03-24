@@ -1,0 +1,13 @@
+<div class="grid grid-cols-3 gap-4" *ngIf="tasks.length; else empty">
+  <app-task-item
+    (onUpdate)="update($event)"
+    (onDelete)="delete($event)"
+    [task]="task"
+    *ngFor="let task of tasks"></app-task-item>
+</div>
+
+<ng-template #empty>
+  <div>
+    No task(s) found
+  </div>
+</ng-template>

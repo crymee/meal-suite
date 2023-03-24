@@ -1,0 +1,11 @@
+<div class="tasks-page-container">
+  <div class="flex justify-between">
+    <h1>Task list</h1>
+    <button mat-raised-button color="accent" (click)="onAdd()">Add new task</button>
+  </div>
+
+  <app-task-list
+    (onDelete)="onDelete($event)"
+    (onUpdate)="onUpdate($event)"
+    [tasks]="tasks$ | async"></app-task-list>
+</div>

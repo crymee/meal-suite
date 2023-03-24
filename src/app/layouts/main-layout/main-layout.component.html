@@ -1,0 +1,34 @@
+<div class="main-layout h-full">
+  <mat-drawer-container class="example-container h-full" autosize>
+    <mat-drawer [opened]="opened" #drawer class="example-sidenav" mode="side">
+      <mat-list>
+        <div mat-subheader>MealSuite</div>
+        <a mat-list-item
+           [routerLinkActive]="['active']"
+           [routerLink]="item.url()"
+           *ngFor="let item of sidebarItems"
+           class="!cursor-pointer">
+          <mat-icon matListItemIcon>{{item.icon}}</mat-icon>
+          <div matListItemTitle>{{item.name}}</div>
+        </a>
+        <mat-divider></mat-divider>
+      </mat-list>
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+      <mat-toolbar color="warn" class="sticky top-0 z-10">
+        <button
+          (click)="drawer.toggle()" mat-icon-button class="example-icon"
+          aria-label="Example icon-button with menu icon">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="example-spacer"></span>
+      </mat-toolbar>
+      <mat-progress-bar *ngIf="loading$ | async" color="accent" mode="indeterminate">
+      </mat-progress-bar>
+      <div class="p-4">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-drawer-container>
+</div>

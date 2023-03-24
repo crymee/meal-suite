@@ -1,0 +1,35 @@
+<mat-card class="task-card h-full">
+  <mat-card-header>
+    <mat-card-title>
+      {{ task.title }}
+    </mat-card-title>
+    <mat-card-subtitle
+      class="text-xs">#{{ task.id }}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngIf="task.assigneeId; else unassigned" class="text-xs text-gray-300 my-4">Assignee
+      id: {{ task.assigneeId }}</div>
+    <ng-template #unassigned>
+      <div class="my-4"><span class="p-2 rounded bg-amber-500 text-white">Unassigned</span></div>
+    </ng-template>
+    <div class="my-4">{{ task.description }}</div>
+    <mat-divider></mat-divider>
+  </mat-card-content>
+  <mat-card-actions class="flex gap-2">
+    <button
+      mat-raised-button
+      color="accent"
+      [disabled]="task.$extra.isLoading"
+      (click)="update()">
+      Update
+    </button>
+    <button
+      mat-raised-button
+      color="warn"
+      [disabled]="task.$extra.isLoading"
+      (click)="delete()">
+      Delete
+    </button>
+  </mat-card-actions>
+</mat-card>
